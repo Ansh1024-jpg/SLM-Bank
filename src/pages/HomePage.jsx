@@ -30,7 +30,7 @@ const HomePage = () => {
 
                 {/* Description */}
                 <p className="text-lg md:text-xl text-blue-100/60 max-w-2xl leading-relaxed animate-fade-in delay-100">
-                    Experience the future of banking operations. Streamline your validation processes with our AI-powered autonomous agent system.
+                    Experience the future of banking operations. Streamline your loan application validation processes with our AI-powered autonomous agent system.
                     Simple, secure, and spectacularly efficient.
                 </p>
 
