@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Core Colors */
+  --bg-dark: #0f111a;
+  --bg-panel: #1e212b;
+  --bg-node: rgba(30, 33, 43, 0.7);
+  --bg-icon: rgba(255, 255, 255, 0.1);
+  
+  /* Node Specifics */
+  --node-bg-idle: rgba(255, 255, 255, 0.05);
+  --node-border-idle: rgba(255, 255, 255, 0.1);
+
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  
+  --accent-primary: #ff6e27; /* n8n orange-ish */
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-purple: #8b5cf6;
+
+  /* Node Colors */
+  --node-trigger: #10b981;
+  --node-agent: #3b82f6;
+  --node-action: #ff6e27;
+  
+  /* Glassmorphism */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] {
+  /* Core Colors - Light Mode */
+  --bg-dark: #f8fafc; /* Slate 50 */
+  --bg-panel: #ffffff;
+  --bg-node: rgba(255, 255, 255, 0.9);
+  --bg-icon: #e2e8f0; /* Slate 200 */
+  
+  /* Node Specifics - Light Mode */
+  --node-bg-idle: #ffffff;
+  --node-border-idle: #e2e8f0; /* Slate 200 */
+
+  --text-primary: #0f172a; /* Slate 900 */
+  --text-secondary: #64748b; /* Slate 500 */
+  
+  /* Glassmorphism - Light Mode */
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  overflow: hidden; /* Prevent scrolling, canvas handles it */
+}
+
+/* React Flow Overrides */
+.react-flow__controls {
+  box-shadow: none !important;
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  overflow: hidden;
+  fill: var(--text-primary) !important;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  fill: var(--text-secondary) !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(125, 125, 125, 0.1) !important;
+  fill: var(--text-primary) !important;
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+/* Utilities */
+.glass-panel {
+  background: rgba(30, 33, 43, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+}
+
+.neo-gradient {
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.15), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(255, 110, 39, 0.15), transparent 40%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Specific overrides for light mode node text or icons if needed */
+[data-theme="light"] .neo-gradient {
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(255, 110, 39, 0.1), transparent 40%);
+}
