@@ -7,10 +7,12 @@ import ReactFlow, {
   addEdge,
   MarkerType
 } from 'reactflow';
+import { AnimatePresence } from 'framer-motion';
 import 'reactflow/dist/style.css';
 import CustomNode from './CustomNode';
 import CustomEdge from './CustomEdge';
 import ValidationSubFlow from './ValidationSubFlow';
+import PageTransition from './PageTransition';
 
 const nodeTypes = {
   trigger: CustomNode,
@@ -148,30 +150,38 @@ const WorkflowCanvas = ({ theme }) => {
     }
   }, []);
 
-  if (activeView === 'validation') {
-    return <ValidationSubFlow onBack={() => setActiveView('main')} />;
-  }
-
   return (
-    <div className="w-full h-full">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        onNodeClick={onNodeClick}
-        fitView
-        defaultEdgeOptions={{
-          type: 'custom',
-          markerEnd: { type: MarkerType.ArrowClosed, color: theme === 'light' ? '#94a3b8' : '#334155' },
-        }}
-        proOptions={{ hideAttribution: true }}
-      >
-        <Background variant="dots" color={theme === 'light' ? '#94a3b8' : '#334155'} gap={20} size={1.5} />
-        <Controls className="!bg-[var(--bg-panel)] !border-[var(--glass-border)]" />
-      </ReactFlow>
+    <div className="w-full h-full relative">
+      <AnimatePresence mode="wait">
+        {activeView === 'validation' ? (
+          <PageTransition key="validation">
+            <ValidationSubFlow onBack={() => setActiveView('main')} />
+          </PageTransition>
+        ) : (
+          <PageTransition key="main">
+            <div className="w-full h-full">
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                onNodeClick={onNodeClick}
+                fitView
+                defaultEdgeOptions={{
+                  type: 'custom',
+                  markerEnd: { type: MarkerType.ArrowClosed, color: theme === 'light' ? '#94a3b8' : '#334155' },
+                }}
+                proOptions={{ hideAttribution: true }}
+              >
+                <Background variant="dots" color={theme === 'light' ? '#94a3b8' : '#334155'} gap={20} size={1.5} />
+                <Controls className="!bg-[var(--bg-panel)] !border-[var(--glass-border)]" />
+              </ReactFlow>
+            </div>
+          </PageTransition>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
